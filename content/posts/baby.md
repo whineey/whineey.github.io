@@ -383,7 +383,7 @@ Nyní tento skript využijeme v příkazu diskshadow na DC:
 The shadow copy was successfully exposed as z:\.
 ```
 
-Tento příkaz vytvoří kopii disku **C:** jako disk **Z:** a my nyní můžeme soubor **NTDS.dit** z této kopie přesunout zpátky na disk C:\ do námi zvolené složky (např. **Temp**) a soubor bezpečně stáhnout odtud. Klíčem tohoto kroku bylo to, abychom vytvořili kopii **NTDS.dit**, která aktuálně není používaná systémem. Pozor, ke správnému zkopírování souboru potřebujeme použít nástroj `robocopy` a ne standardní copy. To je kvůli tomu, že robocopy umožňuje backup mode, což právě obchází problémy s oprávněním, pokud jsme členem skupiny **Backup Operators**.
+Tento příkaz vytvoří kopii disku **C:** jako disk **Z:** a my nyní můžeme soubor **NTDS.dit** z této kopie bezpečně stáhnout. Klíčem tohoto kroku bylo to, abychom vytvořili kopii **NTDS.dit**, která aktuálně není používaná systémem. Pozor, ke správnému zkopírování souboru potřebujeme použít nástroj `robocopy` a ne standardní copy. To je kvůli tomu, že robocopy umožňuje backup mode, což právě obchází problémy s oprávněním, pokud jsme členem skupiny **Backup Operators**.
 
 ```powershell
 *Evil-WinRM* PS C:\Users\Caroline.Robinson\Temp> robocopy /b z:\windows\NTDS\ . ntds.dit
