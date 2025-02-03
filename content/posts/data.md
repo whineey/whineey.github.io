@@ -101,7 +101,7 @@ Po návštěve `http://data.vl:3000` ve webovém prohlížeči uvidíme, že se 
 
 ![Grafana version](/img/version.png)
 
-Pokud vyhledáme verzi na Google, zjistíme, že tato verze obsahuje zranitelnost **Path Traversal** a CVE této zranitelnosti je **CVE-2021-43798**. Projevuje se tak, že při HTTP požadavku např. na `http://http://data.vl:3000/public/plugins/mysql/` lze na konec přidat path traversal k souboru na systému, třeba `/etc/passwd` pro důkaz, že zranitelnost funguje. Výsledný škodlivý dotaz by pak mohl vypadat takto:
+Pokud vyhledáme verzi na Google, zjistíme, že tato verze obsahuje zranitelnost **Path Traversal** a CVE této zranitelnosti je **CVE-2021-43798**. Projevuje se tak, že při HTTP požadavku např. na `http://data.vl:3000/public/plugins/mysql/` lze na konec přidat path traversal k souboru na systému, třeba `/etc/passwd` pro důkaz, že zranitelnost funguje. Výsledný škodlivý dotaz by pak mohl vypadat takto:
 
 ```bash
 curl http://data.vl:3000/public/plugins/mysql/..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd
