@@ -101,7 +101,7 @@ Po návštěve `http://data.vl:3000` ve webovém prohlížeči uvidíme, že se 
 
 ![Grafana version](/img/version.png)
 
-Pokud vyhledáme verzi na Google, zjistíme, že tato verze obsahuje zranitelnost **Path Traversal** a CVE této zranitelnosti je **CVE-2021-43798**. Projevuje se tak, že při HTTP požadavku např. na `http://data.vl:3000/public/plugins/mysql/` lze na konec přidat path traversal k souboru na systému, třeba `/etc/passwd` pro důkaz, že zranitelnost funguje. Výsledný škodlivý dotaz by pak mohl vypadat takto:
+Pokud vyhledáme verzi na Google, zjistíme, že tato verze obsahuje zranitelnost **Path Traversal** a CVE této zranitelnosti je **CVE-2021-43798**. Projevuje se tak, že při HTTP požadavku např. na `http://data.vl:3000/public/plugins/mysql/` lze na konec URL přidat path traversal k nějakému souboru na systému, jehož obsah nám stránka pošle jako součást odpovědi, můžeme zkusit třeba soubor `/etc/passwd` pro důkaz, že zranitelnost funguje. Výsledný škodlivý dotaz by pak mohl vypadat takto:
 
 ```bash
 curl http://data.vl:3000/public/plugins/mysql/..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd
@@ -142,7 +142,7 @@ grafana:x:472:0:Linux User,,,:/home/grafana:/sbin/nologin
 
 ## Exploitace
 
-Skutečně je aplikace zranitelná a byli jsme schopni přečíst soubor na lokálním systému, ale kam dál? Teď když jsme zjistili, že je možné číst systémové soubory, se pojďme zaměřit na ty citlivé, které by nám mohly něco prozradit. Pokud se řekne citlivý soubor v kontextu Grafany, napadá mě například konfigurační nebo databázové soubory. Podle Google je právě jeden takový soubor uložený ve `/var/lib/grafana/grafana.db`, pojďme si jej tedy stáhnout k sobě na Kali.
+Skutečně je aplikace zranitelná a byli jsme schopni přečíst soubor na lokálním systému, ale kam dál? Teď když jsme zjistili, že je možné číst systémové soubory, se pojďme zaměřit na ty citlivé, které by nám mohly něco prozradit. Pokud se řekne citlivý soubor v kontextu Grafany, napadají mě například konfigurační nebo databázové soubory. Podle Google je právě jeden takový soubor uložený ve `/var/lib/grafana/grafana.db`, pojďme si jej tedy stáhnout k sobě na Kali.
 
 ```bash
 curl http://data.vl:3000/public/plugins/mysql/..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fvar%2Flib%2Fgrafana%2Fgrafana.db --output grafana.db
@@ -289,7 +289,7 @@ sudo docker exec -it --privileged -u root grafana sh
 
 Jsme uvnitř kontejneru jako uživatel **root** a kontejner běží v privilegovaném režimu. Odtud je možné získat kontrolu nad hostitelským systémem hned několika způsoby. Já ukážu jeden, který jsem použil já a poté ukážu také odkaz na článek, který popisuje, jak by to šlo udělat jinak. Testoval jsem obě varianty a obě fungovaly.
 
-Moje použití varianta spočívala v tom, že bylo možné namountovat hostitelský diskový oddíl dovnitř kontejneru. pokud na hostitelském systému zadáme příkaz pro vypsání namountovaných disků, uvidíme, že disk `/dev/xvda1` je namountován na kořenový adresář.
+Moje varianta, kterou jsem použil, spočívala v tom, že bylo možné namountovat hostitelský diskový oddíl dovnitř kontejneru. pokud na hostitelském systému zadáme příkaz pro vypsání namountovaných disků, uvidíme, že disk `/dev/xvda1` je namountován na kořenový adresář.
 
 ```bash
 mount | grep ext4
