@@ -393,7 +393,7 @@ Předtím, než tento soubor uploadujeme na doménový řadič, musíme se ujist
 └─$ unix2dos shadow.txt 
 ```
 
-Tento nově vytvořený skript shadow.txt nyní přesuneme na doménový řadič pomocí příkazu `upload` v rámci `evil-winrm` utility. Jednoduše řečeno, v říkazovém řádku na vzdáleném DC zadáme následující:
+Tento nově vytvořený skript shadow.txt nyní přesuneme na doménový řadič pomocí příkazu `upload` v rámci `evil-winrm` utility. Jednoduše řečeno, v příkazovém řádku na vzdáleném DC zadáme následující:
 
 ```powershell
 *Evil-WinRM* PS C:\Users\caroline.robinson> upload shadow.txt
