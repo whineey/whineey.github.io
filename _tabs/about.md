@@ -19,6 +19,10 @@ I have been involved with computer networks since high school, where I studied t
 
 Throughout my studies, I obtained the **Cisco CCNA Routing and Switching Essentials** certificate, which validates my knowledge of networking protocols, routing, and switching.
 
+### Linux Administration
+
+I got my first field-related job as a System/Network administrator at my University. I worked with Linux servers, built and managed clusters **(Proxmox VE)** and gained experience with disk arrays and fibre channel technology. Another very important thing I learned during this job was **documenting** things. I don't underestimate it.
+
 ### Penetration Testing
 
 After finishing my initial studies, I wanted to apply my networking knowledge in practice, which led me to **cybersecurity**, specifically **penetration testing**. I started working with **Linux**, particularly **Kali Linux**, a distribution designed for security analysis. My experience in penetration testing has helped me refine my skills not only in security but also in **system administration and scripting**.
