@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Adam Nevický</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">Adam Nevický</a>
+        <div>
+            <a href="mailto:adam@nevicky.cz" class="btn btn-outline-light btn-sm">Kontakt</a>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="section text-center" style="margin-top: 60px;">
+    <div class="container">
+        <h1 class="display-5 fw-bold">Adam Nevický</h1>
+        <p class="lead mt-3">
+            Linux administrátor, zájemce o DevOps, etický hacker jako hobby
+        </p>
+        <div class="mt-4">
+            <a href="https://www.linkedin.com/in/adam-nevick%C3%BD-274362269/" class="btn btn-outline-primary btn-sm me-2">LinkedIn</a>
+            <a href="https://whineey.github.io" class="btn btn-outline-primary btn-sm">Pentest Blog</a>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section bg-soft">
+    <div class="container">
+        <h2 class="mb-4">O mně</h2>
+        <p>
+            Jsem student třetího ročníku softwarových systémů na Ostravské Univerzitě, kde se zabýváme zejména programováním v Javě (Spring Boot + React), databázemi a agilními přístupy k vývoji software, ale mé zájmy směřují víc ke správě infrastruktury (Virtualizace, Cloud), automatizaci (Bash, Ansible), operačním systémům (Linux), síťovým technologiím a kybernetické bezpečnosti.
+        </p>
+    </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="section">
+    <div class="container">
+        <h2 class="mb-4">Vzdělání</h2>
+
+        <div class="mb-3">
+            <h5>Ostravská univerzita – Softwarové systémy</h5>
+            <p class="text-secondary">Bc., 2023 – současnost</p>
+            <p>
+                Zaměření na softwarovou architekturu, databáze, vývoj aplikací (Java, Spring Boot, React),
+                agilní metodiky a návrh systémů.
+            </p>
+
+            <h5>Střední průmyslová škola elektrotechniky a informatiky</h5>
+            <p class="text-secondary">2018 – 2022</p>
+            <p>
+                Obor síťové technologie. Práce s Cisco zařízeními, konfigurace routerů a switchů, bezpečnost síťových technologií.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section bg-soft">
+    <div class="container">
+        <h2 class="mb-4">Pracovní zkušenosti</h2>
+
+        <div class="mb-4">
+            <h5>Centrum informačních technologií OU - oddělení infrastruktury (DPP)</h5>
+            <p class="text-secondary">duben 2025 – současnost</p>
+            <ul>
+                <li>Instalace a konfigurace virtualizační platformy Proxmox</li>
+                <li>Síťová konfigurace jednotlivých uzlů</li>
+                <li>Připojení jednotlivých uzlů do clusteru</li>
+                <li>Testování vysoké dostupnosti a migrací VM v rámci clusteru</li>
+                <li>Testování migrací VM z platformy VMware</li>
+                <li>Práce s distribucemi typu Debian a RedHat</li>
+                <li>Spolupráce s administrátory při řešení problémů</li>
+                <li>Vedení interní dokumentace</li>
+                <li>Využití Ansible pro automatizaci konfigurace uzlů (nastavení NTP serverů, vytváření uživatelů, instalace balíčků)</li>
+            </ul>
+
+            <h5>ATComputers a. s. - Správa webového obsahu (DPP/DPČ)</h5>
+            <p class="text-secondary">2020 – 2025</p>
+            <ul>
+                <li>HTML, CSS, JS, Bootstrap</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section">
+    <div class="container">
+        <h2 class="mb-4">Projekty</h2>
+
+        <div class="mb-4">
+            <h5>Cloudová infrastruktura pro honeypoty (Bakalářská práce ve fázi vývoje)</h5>
+            <ul>
+                <li>Terraform (azurerm) – provisioning VM v Azure</li>
+                <li>Cloud-init pro bootstrap serverů</li>
+                <li>Ansible playbooky pro automatizaci konfigurací (instalace docker, nastavení NTP, nasazení služeb, atd.)</li>
+                <li>Nasazení ELK stacku, Filebeat a Cowrie honeypotu (docker compose)</li>
+                <li>Návrh síťové segmentace a NSG pravidel, využití user namespaces</li>
+            </ul>
+
+            <h5>Self-hosted webová aplikace (Nette / PHP)</h5>
+            <ul>
+                <li>Instalace balíčků a závislostí</li>
+                <li>Instalace a konfigurace nginx</li>
+                <li>Generování TLS certifikátu</li>
+                <li>Integrace WAF (SafeLine)</li>
+                <li>Instalace a konfigurace databáze mysql</li>
+            </ul>
+
+            <h5>Domácí proxmox server</h5>
+            <ul>
+                <li>Nasazení vlastního Gitea serveru</li>
+                <li>Domácí cloud (Nextcloud)</li>
+                <li>Domácí VPN (tailscale)</li>
+                <li>Instalace OPNsense</li>
+                <li>Experimentování s ansible pro automatizaci nasazení</li>
+                <li>Hostování vlastní webové stránky</li>
+            </ul>
+
+            <h5>Suricata IDS</h5>
+            <ul>
+                <li>Instalace a konfigurace IDS</li>
+                <li>Simulace síťových útoků (brute-force, exploity)</li>
+                <li>Testování detekčních pravidel</li>
+                <li>Záloha IDS logů na google drive (rclone)</li>
+                <li>Skriptování v bash (automatické mailové notifikace při vytížení serveru)</li>
+                <li>Automatická detekce podezřelé aktivity (skenování portů) a zachycení síťového provozu</li>
+                <li>Rotace logů (logrotate)</li>
+            </ul>
+
+            <h5>Experimentální Active Directory (AD) síť</h5>
+            <ul>
+                <li>Instalace a konfigurace doménového řadiče a klientů</li>
+                <li>Tvorba doménových účtů a oprávnění, tvorba služebních účtů</li>
+                <li>Tvorba GPO</li>
+                <li>Penetrační testování AD sítě (SMB relay útoky, IPv6 DNS takeover, Lateral movement)</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="section bg-soft">
+    <div class="container">
+        <h2 class="mb-4">Certifikace</h2>
+
+        <div class="mb-3">
+            <h5>PJPT – Practical Junior Penetration Tester</h5>
+            <p class="text-secondary">TCM Security</p>
+            <p>
+                Praktická zkouška zaměřená na síťové penetrační testování,
+                enumeraci, privilege escalation a reportování zranitelností v AD síti.
+            </p>
+        </div>
+
+        <div class="mb-3">
+            <h5>PWPA – Practical Web Penetration Tester</h5>
+            <p class="text-secondary">TCM Security</p>
+            <p>
+                Praktická certifikace zaměřená na testování webových aplikací,
+                identifikaci zranitelností a reportování zranitelností.
+            </p>
+        </div>
+
+        <div class="mb-3">
+            <h5>eJPT – eLearnSecurity Junior Penetration Tester</h5>
+            <p class="text-secondary">INE</p>
+            <p>
+                Průzkum sítě a služeb, penetrační testování OS Linux i Windows, využití CVE, metasploit a metodologie penetračního testování.
+            </p>
+        </div>
+    </div>
+</section>
+
+
+<!-- CONTACT -->
+<section class="section text-center">
+    <div class="container">
+        <h2>Kontakt</h2>
+        <p class="mt-3">
+            Hledám příležitost na pozici Junior DevOps / Cloud Engineer,
+            kde mohu dále rozvíjet své zkušenosti v oblasti infrastruktury,
+            automatizace a bezpečnosti.
+        </p>
+        <a href="mailto:adam@nevicky.cz" class="btn btn-outline-primary mt-3">
+            Napište mi
+        </a>
+    </div>
+</section>
+
+<footer class="text-center py-4 bg-soft">
+    <p class="text-secondary mb-0">© 2026 Adam Nevický</p>
+</footer>
+
+</body>
+</html>

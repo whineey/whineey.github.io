@@ -1,0 +1,35 @@
+body {
+    background-color: #f8fafc;
+    color: #0f172a;
+}
+
+.section {
+    padding: 80px 0;
+}
+
+.bg-light-section {
+    background-color: #ffffff;
+}
+
+.bg-soft {
+    background-color: #f1f5f9;
+}
+
+.badge-skill {
+    background-color: #e2e8f0;
+    color: #0f172a;
+    margin: 4px;
+    font-weight: 500;
+}
+
+.navbar {
+    background-color: #ffffff !important;
+}
+
+.navbar-brand {
+    color: #0f172a !important;
+}
+
+.container {
+    max-width: 900px;
+}
