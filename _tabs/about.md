@@ -8,8 +8,7 @@ Hello, my nickname is Whineey and I study **Software Systems**. Outside of my st
 
 - 🧑‍💻 My main interests are **computer networks** and **penetration testing**.
 - 🎓 I am a student studying **Software Systems**.
-- 🎯 My dream is to become a professional **Penetration Tester/Red Teamer**.
-- ✍️ This blog documents my journey toward achieving this goal.
+- ✍️ This blog documents my ethical hacking experiences.
 
 ## My Experience
 
@@ -44,5 +43,3 @@ I have also validated my knowledge with certifications:
 - **eJPT (eLearnSecurity Junior Penetration Tester)**
 - **PJPT (Practical Junior Penetration Tester) – TCM Security**
 - **PWPA (Practical Web Pentest Associate) – TCM Security**
-
-My **mid-term goal** is to obtain the **OSCP (Offensive Security Certified Professional)** certification, which will elevate my penetration testing expertise to the next level.
