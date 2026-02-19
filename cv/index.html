@@ -42,7 +42,7 @@
     <div class="container">
         <h2 class="mb-4">O mně</h2>
         <p>
-            Jsem student třetího ročníku softwarových systémů na Ostravské Univerzitě, kde se zabýváme zejména programováním v Javě (Spring Boot + React), databázemi a agilními přístupy k vývoji software, ale mé zájmy směřují víc ke správě infrastruktury (Virtualizace, Cloud), automatizaci (Bash, Ansible), operačním systémům (Linux), síťovým technologiím a kybernetické bezpečnosti.
+            Jsem student třetího ročníku softwarových systémů na Ostravské Univerzitě, kde se zabýváme zejména programováním v Javě (Spring Boot + React), databázemi a agilními přístupy k vývoji software, ale mé zájmy směřují víc ke správě infrastruktury (Virtualizace, Cloud), automatizaci (Bash, Ansible), operačním systémům (Linux), síťovým technologiím a kybernetické bezpečnosti. Vedu si také svůj osobní <a href="https://whineey.github.io" target="_blank">blog</a>, kde dokumentuji své postupy při etickém hackingu.
         </p>
     </div>
 </section>
@@ -75,15 +75,18 @@
         <h2 class="mb-4">Pracovní zkušenosti</h2>
 
         <div class="mb-4">
-            <h5>Centrum informačních technologií OU - oddělení infrastruktury (DPP)</h5>
+            <h5>Centrum informačních technologií OU - oddělení infrastruktury</h5>
             <p class="text-secondary">duben 2025 – současnost</p>
             <ul>
                 <li>Instalace a konfigurace virtualizační platformy Proxmox</li>
                 <li>Síťová konfigurace jednotlivých uzlů</li>
-                <li>Připojení jednotlivých uzlů do clusteru</li>
-                <li>Testování vysoké dostupnosti a migrací VM v rámci clusteru</li>
-                <li>Testování migrací VM z platformy VMware</li>
-                <li>Práce s distribucemi typu Debian a RedHat</li>
+                <li>Implementace LVM úložiště, práce s diskovými poli Dell</li>
+                <li>Implementace a konfigurace NFS serveru</li>
+                <li>Testování vysoké dostupnosti a live migrací VM</li>
+                <li>Migrace VM z platformy VMware</li>
+                <li>Správa systémů Linux (Debian, RedHat)</li>
+                <li>Konfigurace a správá repozitářů</li>
+                <li>Využití bash skriptování pro automatizaci aktualizací uzlů a migrací VM</li>
                 <li>Spolupráce s administrátory při řešení problémů</li>
                 <li>Vedení interní dokumentace</li>
                 <li>Využití Ansible pro automatizaci konfigurace uzlů (nastavení NTP serverů, vytváření uživatelů, instalace balíčků)</li>
@@ -162,31 +165,57 @@
     <div class="container">
         <h2 class="mb-4">Certifikace</h2>
 
-        <div class="mb-3">
+        <!-- PJPT -->
+    <div class="row align-items-center mb-4">
+        <div class="col-md-8">
             <h5>PJPT – Practical Junior Penetration Tester</h5>
-            <p class="text-secondary">TCM Security</p>
+            <p class="text-secondary mb-1">TCM Security</p>
             <p>
                 Praktická zkouška zaměřená na síťové penetrační testování,
-                enumeraci, privilege escalation a reportování zranitelností v AD síti.
+                enumeraci, privilege escalation, lateral movement a reportování zranitelností v AD síti.
             </p>
         </div>
+        <div class="col-md-4 text-md-end text-center">
+            <a href="https://certified.tcm-sec.com/b8618d98-82f3-4346-95db-993c11ab9d35?key=b4fc996e0f92b400c5532e9bd4f2942bbf540d157883c00ef172525504e6a3c5#acc.pTDcelCR" target="_blank">
+                <img src="images/tcm.jpg" class="img-thumbnail" style="max-width: 200px;">
+            </a>
+        </div>
+    </div>
 
-        <div class="mb-3">
+    <!-- PWPA -->
+    <div class="row align-items-center mb-4">
+        <div class="col-md-8">
             <h5>PWPA – Practical Web Penetration Tester</h5>
-            <p class="text-secondary">TCM Security</p>
+            <p class="text-secondary mb-1">TCM Security</p>
             <p>
                 Praktická certifikace zaměřená na testování webových aplikací,
                 identifikaci zranitelností a reportování zranitelností.
             </p>
         </div>
+        <div class="col-md-4 text-md-end text-center">
+            <a href="https://certified.tcm-sec.com/b09a1927-d2ea-42a8-93f1-bf01e4466975#acc.Q3moTpht" target="_blank">
+                <img src="images/tcm.jpg" class="img-thumbnail" style="max-width: 200px;">
+            </a>
+        </div>
+    </div>
 
-        <div class="mb-3">
+    <!-- eJPT -->
+    <div class="row align-items-center mb-4">
+        <div class="col-md-8">
             <h5>eJPT – eLearnSecurity Junior Penetration Tester</h5>
-            <p class="text-secondary">INE</p>
+            <p class="text-secondary mb-1">INE</p>
             <p>
-                Průzkum sítě a služeb, penetrační testování OS Linux i Windows, využití CVE, metasploit a metodologie penetračního testování.
+                Průzkum sítě a služeb, penetrační testování OS Linux i Windows,
+                využití CVE, metasploit a metodologie penetračního testování.
             </p>
         </div>
+        <div class="col-md-4 text-md-end text-center">
+            <a href="https://certs.ine.com/3dd9cc05-12b8-47b6-98a8-b2d0c162d0b3#acc.eWcYQbzg" target="_blank">
+                <img src="images/ine.jpg" class="img-thumbnail" style="max-width: 200px;">
+            </a>
+        </div>
+    </div>
+        
     </div>
 </section>
 
